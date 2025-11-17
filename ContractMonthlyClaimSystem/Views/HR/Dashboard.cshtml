@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "HR Dashboard";
+}
+
+<div class="container mt-4">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+        <h4 class="mb-0">Welcome, HR</h4>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item active" aria-current="page">HR Dashboard</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Quick Access -->
+    <div class="card shadow-sm rounded-3 mb-4">
+        <div class="card-body">
+            <h4 class="card-title mb-3 text-dark">Quick Access</h4>
+            <div class="d-flex flex-wrap gap-3">
+                <a asp-action="CreateUser" class="btn btn-primary">Add New User</a>
+                <a asp-action="ViewUsers" class="btn btn-primary">View All Users</a>
+                <a asp-action="Reports" class="btn btn-primary">Generate Reports</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="display-6">@ViewBag.TotalUsers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Lecturers</h5>
+                    <p class="display-6">@ViewBag.TotalLecturers</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title">Admins/Coordinators</h5>
+                    <p class="display-6">@ViewBag.TotalAdmins</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

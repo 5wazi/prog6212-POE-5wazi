@@ -1,0 +1,103 @@
+﻿@model ContractMonthlyClaimSystem.Models.Claim
+
+@{
+    ViewData["Title"] = "Review Claim";
+}
+
+<br />
+
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h4 class="fw-bold">Review Claim #@Model.ClaimID</h4>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="ProgramCoordinator" asp-action="Dashboard">Coordinator Dashboard</a></li>
+            <li class="breadcrumb-item"><a asp-controller="ProgramCoordinator" asp-action="Claims">Claims</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Claim Details</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Claim Details Card -->
+<div class="card bg-light text-dark shadow-sm rounded-3 mb-4">
+    <div class="card-body">
+        <h5 class="card-title mb-3 fw-semibold">Claim Details</h5>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <p><strong>Lecturer:</strong> @Model.FullName</p>
+                <p><strong>Month:</strong> @Model.SubmissionDate.ToString("MMMM")</p>
+                <p><strong>Hours Worked:</strong> @Model.HoursWorked</p>
+                <p><strong>Hourly Rate:</strong> R @Model.HourlyRate</p>
+                <p><strong>Total:</strong> R @Model.Total</p>
+                <p>
+                    <strong>Status:</strong>
+                    @switch (Model.ClaimStatus)
+                    {
+                        case "Pending":
+                        case "Submitted":
+                            <span class="badge bg-warning text-dark">@Model.ClaimStatus</span>
+                            ;
+                            break;
+                        case "Approved":
+                            <span class="badge bg-success">@Model.ClaimStatus</span>
+                            ;
+                            break;
+                        case "Rejected":
+                            <span class="badge bg-danger">@Model.ClaimStatus</span>
+                            ;
+                            break;
+                        case "Verified":
+                            <span class="badge bg-info text-dark">@Model.ClaimStatus</span>
+                            ;
+                            break;
+                        default:
+                            <span class="badge bg-secondary">@Model.ClaimStatus</span>
+                            ;
+                            break;
+                    }
+                </p>
+                <p><strong>Submission Date:</strong> @Model.SubmissionDate.ToString("yyyy-MM-dd")</p>
+            </div>
+            <div class="col-md-6">
+                <h6>Uploaded Documents</h6>
+                @if (Model.Documents != null && Model.Documents.Count > 0)
+                {
+                    <ul class="list-group list-group-flush">
+                        @foreach (var doc in Model.Documents)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                @doc.FileName
+                                <a href="@Url.Content("~/uploads/" + doc.FileName)" target="_blank" class="btn btn-sm btn-outline-secondary">Download</a>
+                            </li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p class="text-muted">No documents uploaded.</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Reviewer Action Card -->
+<div class="card bg-light text-dark shadow-sm rounded-3">
+    <div class="card-body">
+        <h5 class="card-title mb-3 fw-semibold">Reviewer Actions</h5>
+
+        <form asp-controller="ProgramCoordinator" asp-action="ReviewClaim" method="post">
+            <input type="hidden" name="id" value="@Model.ClaimID" />
+
+            <div class="mb-3">
+                <label for="reviewComment" class="form-label">Provide Feedback</label>
+                <textarea class="form-control" id="reviewComment" name="reviewerComment" rows="4" placeholder="Add comments for rejection or clarification..."></textarea>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" name="action" value="Verify" class="btn btn-success px-4">Approve Claim</button>
+                <button type="submit" name="action" value="Reject" class="btn btn-danger px-4">Reject Claim</button>
+                <a asp-controller="ProgramCoordinator" asp-action="Claims" class="btn btn-outline-secondary px-4">Back to Claims</a>
+            </div>
+        </form>
+    </div>
+</div>

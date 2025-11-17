@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Feature Coming Soon";
+    var featureName = ViewData["FeatureName"] as string ?? "This feature";
+    var userRole = ViewData["UserRole"] as string ?? "Lecturer"; // default to Lecturer
+    string dashboardAction = "Dashboard";
+    string dashboardController = userRole switch
+    {
+        "ProgramCoordinator" => "ProgramCoordinator",
+        "AcademicManager" => "AcademicManager",
+        _ => "Lecturer"
+    };
+}
+
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4">🚧 Feature Coming Soon!</h1>
+        <p class="lead">@featureName is not yet available. Please check back later.</p>
+        <a href="@Url.Action(dashboardAction, dashboardController)" class="btn btn-primary mt-3">Back to Dashboard</a>
+    </div>
+</div>

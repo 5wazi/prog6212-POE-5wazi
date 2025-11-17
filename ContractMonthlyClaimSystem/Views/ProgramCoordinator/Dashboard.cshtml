@@ -1,0 +1,125 @@
+﻿@{
+    ViewData["Title"] = "Coordinator Dashboard";
+}
+
+<!-- Top bar -->
+<br />
+
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h4 class="fw-bold">Welcome, Programme Coordinator</h4>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item active" aria-current="page">Coordinator Dashboard</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Quick Access -->
+<div class="card shadow-sm rounded-3 mb-4 border-0">
+    <div class="card-body">
+        <h4 class="card-title mb-3 fw-semibold">Quick Access</h4>
+        <div class="d-flex flex-wrap gap-3">
+            <a href="@Url.Action("Claims", "ProgramCoordinator")" class="btn btn-primary px-4">Review Pending Claims</a>
+            <a href="@Url.Action("FeatureComingSoon", "Home", new { featureName = "Manage Lecturers", userRole = "ProgramCoordinator" })" class="btn btn-primary px-4">Manage Lecturers</a>
+            <a href="@Url.Action("FeatureComingSoon", "Home", new { featureName = "Generate Reports", userRole = "ProgramCoordinator" })" class="btn btn-primary px-4">Generate Reports</a>
+            <a href="@Url.Action("FeatureComingSoon", "Home", new { featureName = "Help & Support", userRole = "ProgramCoordinator" })" class="btn btn-primary px-4">Help & Support</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="row g-4">
+    <!-- Claim Overview -->
+    <div class="col-md-6 d-flex">
+        <div class="card shadow-sm rounded-3 border-0 flex-fill">
+            <div class="card-body">
+                <h4 class="card-title mb-3 fw-semibold">Claim Overview</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total Lecturer Claims</span> <span class="fw-bold">@ViewData["TotalClaims"]</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Pending Review</span> <span class="badge bg-warning text-dark">@ViewData["PendingClaims"]</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Approved</span> <span class="badge bg-success">@ViewData["ApprovedClaims"]</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Rejected</span> <span class="badge bg-danger">@ViewData["RejectedClaims"]</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Claim Activity -->
+    <div class="col-md-6 d-flex">
+        <div class="card shadow-sm rounded-3 border-0 flex-fill">
+            <div class="card-body">
+                <h4 class="card-title mb-3 fw-semibold">Recent Claim Activity</h4>
+                <ul class="list-group list-group-flush">
+                    @{
+                        var recentClaims = ViewData["RecentClaims"] as List<Claim>;
+                        if (recentClaims != null && recentClaims.Any())
+                        {
+                            foreach (var claim in recentClaims)
+                            {
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Claim #@claim.ClaimID</span>
+                                    <span class="badge @(claim.ClaimStatus == "Pending" || claim.ClaimStatus == "Submitted" ? "bg-warning text-dark" :
+                                 claim.ClaimStatus == "Approved" ? "bg-success" : "bg-danger")">
+                                        @claim.ClaimStatus
+                                    </span>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item text-center text-muted">
+                                No recent claim activity to display.
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<!-- Lecturer Overview and Reports -->
+<div class="row g-4">
+    <!-- Lecturer Overview -->
+    <div class="col-md-6">
+        <div class="card shadow-sm rounded-3 border-0">
+            <div class="card-body">
+                <h4 class="card-title mb-3 fw-semibold">Lecturer Overview</h4>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Lecturers Managed</span> <span class="fw-bold">@ViewData["TotalLecturers"]</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Active This Month</span> <span class="badge bg-info text-dark">@ViewData["ActiveLecturers"]</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Inactive</span> <span class="badge bg-secondary">@ViewData["InactiveLecturers"]</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reports & Analytics -->
+    <div class="col-md-6">
+        <div class="card shadow-sm rounded-3 border-0">
+            <div class="card-body">
+                <h4 class="card-title mb-3 fw-semibold">Reports & Analytics</h4>
+                <p class="text-muted mb-3">Download monthly summaries, lecturer performance reports, and claim history for audit purposes.</p>
+                <!--<button class="btn btn-outline-primary">Download Report</button>-->
+                <a href="@Url.Action("FeatureComingSoon", "Home", new { featureName = "Download Report", userRole = "ProgramCoordinator" })" class="btn btn-primary px-4">Download Report</a>
+            </div>
+        </div>
+    </div>
+</div>

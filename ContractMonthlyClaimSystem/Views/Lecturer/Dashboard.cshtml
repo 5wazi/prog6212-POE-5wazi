@@ -1,0 +1,81 @@
+﻿@model List<ContractMonthlyClaimSystem.Models.Claim>
+@{
+    ViewData["Title"] = "Lecturer Dashboard";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+        <h4 class="mb-0">Welcome, Lecturer</h4>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Quick Access -->
+    <div class="card shadow-sm rounded-3 mb-4">
+        <div class="card-body">
+            <h4 class="card-title mb-3 text-dark">Quick Access</h4>
+            <div class="d-flex flex-wrap gap-3">
+                <a asp-controller="Lecturer" asp-action="AddClaim" class="btn btn-primary">Submit New Claim</a>
+                <a asp-controller="Lecturer" asp-action="Claims" class="btn btn-primary">View My Claims</a>
+                <a href="@Url.Action("FeatureComingSoon", "Home", new { featureName = "Download Claim Form", userRole = "Lecturer" })" class="btn btn-primary px-4">Download Claim Form</a>
+                <a href="@Url.Action("FeatureComingSoon", "Home", new { featureName = "Help & Support", userRole = "Lecturer" })" class="btn btn-primary px-4">Help & Support</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Claim Summary -->
+        <div class="col-md-6 d-flex">
+            <div class="card shadow-sm rounded-3 flex-fill">
+                <div class="card-body">
+                    <h4 class="card-title mb-3 text-dark">Claim Summary</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Total Claims</span> <span class="fw-bold text-dark">@ViewBag.TotalClaims</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Pending</span> <span class="badge bg-warning text-dark">@ViewBag.PendingClaims</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Approved</span> <span class="badge bg-success">@ViewBag.ApprovedClaims</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Rejected</span> <span class="badge bg-danger">@ViewBag.RejectedClaims</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="col-md-6 d-flex">
+            <div class="card shadow-sm rounded-3 flex-fill">
+                <div class="card-body">
+                    <h4 class="card-title mb-3 text-dark">Recent Activity</h4>
+                    <ul class="list-group list-group-flush">
+                        @if (Model != null && Model.Count > 0)
+                        {
+                            foreach (var claim in Model.Take(5))
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Claim #@claim.ClaimID
+                                    <span class="badge @(claim.ClaimStatus=="Approved" ? "bg-success" : claim.ClaimStatus=="Pending" ? "bg-warning text-dark" : "bg-danger")">
+                                        @claim.ClaimStatus
+                                    </span>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item text-center text-muted">No recent claims</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

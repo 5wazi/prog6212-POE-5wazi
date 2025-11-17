@@ -1,0 +1,38 @@
+﻿@model ContractMonthlyClaimSystem.Models.User
+@{
+    ViewData["Title"] = "Add User";
+}
+
+<div class="container mt-4">
+    <h4>Add New User</h4>
+
+    <form asp-action="CreateUser" method="post">
+        <div class="mb-3">
+            <label asp-for="FullName" class="form-label"></label>
+            <input asp-for="FullName" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="UserEmail" class="form-label"></label>
+            <input asp-for="UserEmail" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Password" class="form-label"></label>
+            <input asp-for="Password" type="password" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="ContactNumber" class="form-label"></label>
+            <input asp-for="ContactNumber" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="RoleID" class="form-label">Role</label>
+            <select asp-for="RoleID" class="form-select" asp-items="ViewBag.RoleList"></select>
+        </div>
+        <div class="mb-3">
+            <label asp-for="HourlyRate" class="form-label"></label>
+            <input asp-for="HourlyRate" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-action="Dashboard" class="btn btn-outline-secondary ms-2">Cancel</a>
+    </form>
+</div>
+

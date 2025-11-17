@@ -1,0 +1,116 @@
+﻿@model List<ContractMonthlyClaimSystem.Models.Claim>
+@{
+    ViewData["Title"] = "My Claims";
+}
+
+<!-- Top bar -->
+<br />
+<div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+    <h4 class="fw-bold mb-0">My Claims</h4>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Lecturer" asp-action="Dashboard">Lecturer Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Claims</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="mt-2">
+    <a asp-controller="Lecturer" asp-action="AddClaim" class="btn btn-primary px-4">Submit New Claim</a>
+</div>
+
+<br />
+
+<!-- Filter Options -->
+<div class="card shadow-sm rounded-3 mb-4 border-0">
+    <div class="card-body">
+        <h5 class="card-title mb-3 fw-semibold">Filter Claims</h5>
+        <div class="row g-3">
+            <div class="col-md-3">
+                <input type="month" class="form-control" id="filterMonth" placeholder="Filter by Month">
+            </div>
+            <div class="col-md-3">
+                <select class="form-select" id="filterStatus">
+                    <option selected>All Statuses</option>
+                    <option>Submitted</option>
+                    <option>Pending</option>
+                    <option>Approved</option>
+                    <option>Rejected</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button class="btn btn-primary px-4">Apply Filter</button>
+                <button class="btn btn-outline-secondary px-4">Reset</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Claims Table -->
+<div class="card shadow-sm rounded-3 border-0">
+    <div class="card-body">
+        <h5 class="card-title mb-3 fw-semibold">All Submitted Claims</h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Claim ID</th>
+                        <th>Date</th>
+                        <th>Hours Worked</th>
+                        <th>Hourly Rate (R)</th>
+                        <th>Total (R)</th>
+                        <th>Status</th>
+                        <th>Documents</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var claim in Model)
+                        {
+                            <tr>
+                                <td>#@claim.ClaimID</td>
+                                <td>@claim.SubmissionDate.ToString("yyyy-MM-dd")</td>
+                                <td>@claim.HoursWorked</td>
+                                <td>@claim.HourlyRate</td>
+                                <td>@claim.Total</td>
+                                <td>
+                                    @switch (claim.ClaimStatus)
+                                    {
+                                        case "Pending":
+                                            <span class="badge bg-warning text-dark">Pending</span>
+                                            ;
+                                            break;
+                                        case "Approved":
+                                            <span class="badge bg-success">Approved</span>
+                                            ;
+                                            break;
+                                        case "Rejected":
+                                            <span class="badge bg-danger">Rejected</span>
+                                            ;
+                                            break;
+                                        default:
+                                            <span class="badge bg-secondary">@claim.ClaimStatus</span>
+                                            ;
+                                            break;
+                                    }
+                                </td>
+                                <td>@(claim.Documents?.Count ?? 0) Files</td>
+                                <td>
+                                    <a asp-controller="Lecturer" asp-action="ViewClaim" asp-route-id="@claim.ClaimID" class="btn btn-sm btn-outline-primary">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center">No claims found.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

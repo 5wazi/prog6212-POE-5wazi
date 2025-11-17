@@ -1,0 +1,156 @@
+﻿@model ContractMonthlyClaimSystem.Models.Claim
+@{
+    ViewData["Title"] = "Add Claim";
+}
+
+<div class="container mt-4">
+
+    <!-- Top bar -->
+    <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-2">
+        <h4 class="fw-bold">Submit New Claim</h4>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a asp-controller="Lecturer" asp-action="Dashboard">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Submit Claim</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Claim Form -->
+    <div class="card shadow-sm rounded-3 border-0">
+        <div class="card-body">
+            <h5 class="card-title mb-3 fw-semibold">Claim Details</h5>
+            <form asp-action="AddClaim" asp-controller="Lecturer" method="post" enctype="multipart/form-data">
+                <!--Verify Anti-Forgery Token-->
+                @Html.AntiForgeryToken()
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="FullName" class="form-label fw-semibold">Full Name</label>
+                        <input asp-for="FullName" class="form-control" placeholder="Enter your full name" required />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="ModuleCode" class="form-label fw-semibold">Claim Title</label>
+                        <input asp-for="ModuleCode" class="form-control" placeholder="e.g. Extra Tutorials, Exam Marking" required />
+                        <span asp-validation-for="ModuleCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold">Submission Date</label>
+                        <!-- Hidden input posts the date -->
+                        <input asp-for="SubmissionDate" type="hidden" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                        <!-- Readonly display -->
+                        <p class="form-control-plaintext">@DateTime.Now.ToString("yyyy-MM-dd")</p>
+                    </div>
+                </div>
+
+                <!--Part 3-->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="HoursWorked" class="form-label fw-semibold">Hours Worked</label>
+                        <input asp-for="HoursWorked" class="form-control" id="HoursWorked" required />
+                        <span asp-validation-for="HoursWorked" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label asp-for="HourlyRate" class="form-label fw-semibold">Hourly Rate (R)</label>
+                        <!-- Hidden input for form submission -->
+                        <input type="hidden" asp-for="HourlyRate" value="@(Model.User?.HourlyRate ?? 0)" />
+                        <!-- Display read-only to user -->
+                        <p class="form-control-plaintext">@Model.User?.HourlyRate.ToString("0.00")</p>
+                        <span asp-validation-for="HourlyRate" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="Total" class="form-label fw-semibold">Total (R)</label>
+                        <!-- Hidden input for Total -->
+                        <input type="hidden" asp-for="Total" class="form-control" id="Total" readonly />
+                        <!-- Display read-only -->
+                        <p class="form-control-plaintext" id="TotalDisplay">0.00</p>
+                    </div>
+                </div>
+
+
+                <div class="mb-4">
+                    <label asp-for="Notes" class="form-label fw-semibold">Description</label>
+                    <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Provide a brief description" required></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+                <!--File Error Handling-->
+                <div class="mb-4">
+                    @if (ViewBag.UploadError != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.UploadError
+                        </div>
+                    }
+                    <label asp-for="Documents" class="form-label fw-semibold">Supporting Documents</label>
+                    <input type="file" name="files" id="files" class="form-control" multiple />
+                    <small class="text-muted">Accepted formats: PDF, DOCX, XLSX. Max size per file: 20MB</small>
+                    <div id="fileErrors" class="text-danger mt-1"></div>
+                </div>
+                <div class="d-flex justify-content-end gap-3">
+                    <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                    <!--<button type="submit">Test Redirect</button>-->
+                    <button type="submit" class="btn btn-primary">Submit Claim</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-calc total
+        const hoursInput = document.getElementById("HoursWorked");
+        const rateInput = document.getElementById("HourlyRate");
+        const totalInput = document.getElementById("Total");
+
+        hoursInput?.addEventListener("input", calculateTotal);
+        rateInput?.addEventListener("input", calculateTotal);
+
+        //Part 3
+        function calculateTotal() {
+            const hours = parseFloat(hoursInput.value) || 0;
+            const rate = parseFloat(rateInput.value) || 0;
+            const total = hours * rate;
+            totalInput.value = total;
+            document.getElementById("TotalDisplay").innerText = total.toFixed(2);
+        }
+
+            // Client-side file validation
+        const fileInput = document.getElementById("files");
+        const fileErrorsDiv = document.getElementById("fileErrors");
+        const maxFileSize = 20 * 1024 * 1024; // 20 MB
+        const allowedExtensions = [".pdf", ".docx", ".xlsx"];
+
+        fileInput.addEventListener("change", function () {
+            const files = fileInput.files;
+            let errors = [];
+
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const ext = "." + file.name.split('.').pop().toLowerCase();
+
+                if (!allowedExtensions.includes(ext)) {
+                    errors.push(`${file.name} - invalid type`);
+                }
+
+                if (file.size > maxFileSize) {
+                    errors.push(`${file.name} - exceeds 20MB`);
+                }
+            }
+
+            if (errors.length > 0) {
+                fileErrorsDiv.innerHTML = errors.join("<br>");
+                fileInput.value = ""; // clear invalid files
+            } else {
+                fileErrorsDiv.innerHTML = ""; // clear errors
+            }
+        });
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+}

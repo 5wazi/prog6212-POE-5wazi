@@ -1,0 +1,44 @@
+﻿@model ContractMonthlyClaimSystem.Models.Login
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container mt-5" style="max-width: 400px;">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h4 class="card-title mb-4 text-center">Login</h4>
+
+            <form asp-action="Login" method="post">
+                <div class="mb-3">
+                    <label asp-for="UserEmail" class="form-label"></label>
+                    <input asp-for="UserEmail" class="form-control" />
+                    <span asp-validation-for="UserEmail" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Password" class="form-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <!--<div class="mb-3">
+                    <label asp-for="Role" class="form-label">Select Role</label>
+                    <select asp-for="Role" class="form-select">
+                        <option value="">-- Select Role --</option>
+                        <option value="Lecturer">Lecturer</option>
+                        <option value="Coordinator">Program Coordinator</option>
+                        <option value="Manager">Academic Manager</option>
+                    </select>
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>-->
+
+                <button type="submit" class="btn btn-primary w-100">Login</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

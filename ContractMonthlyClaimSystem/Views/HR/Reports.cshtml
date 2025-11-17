@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ContractMonthlyClaimSystem.Models.LecturerReport>
+
+<div class="container mt-4">
+    <h4>Lecturer Reports</h4>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped align-middle">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Lecturer</th>
+                            <th>Total Hours Worked</th>
+                            <th>Total Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var report in Model)
+                        {
+                            <tr>
+                                <td>@report.Lecturer</td>
+                                <td>@report.TotalHours</td>
+                                <td>@report.TotalAmount.ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <a asp-action="Dashboard" class="btn btn-outline-secondary mt-3">Back to Dashboard</a>
+        </div>
+    </div>
+</div>

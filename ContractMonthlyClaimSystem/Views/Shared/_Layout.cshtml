@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Claim System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ContractMonthlyClaimSystem.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Index">Claim System</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Default Menu -->
+                <div id="defaultMenu" class="justify-content-center" style="display:flex;">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active fw-bold" asp-controller="Lecturer" asp-action="Dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" asp-controller="Lecturer" asp-action="Claims">Claims</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" href="#">Documents</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" href="#">My Profile</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- HR Menu -->
+                <div id="hrMenu" class="justify-content-center" style="display:none;">
+                    <ul class="navbar-nav">
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" asp-controller="HR" asp-action="Dashboard">Dashboard</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" asp-controller="HR" asp-action="CreateUser">Add User</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" asp-controller="HR" asp-action="ViewUsers">View Users</a>
+                        </li>
+                        <li class="nav-item fw-bold">
+                            <a class="nav-link" asp-controller="HR" asp-action="Reports">Reports</a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- Role & Logout -->
+                <nav class="navbar navbar-light bg-light px-3 ms-auto">
+                    <div class="d-flex align-items-center">
+                        <!-- Role Dropdown -->
+                        <div class="dropdown me-3">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userRoleDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                User: Lecturer
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="userRoleDropdown">
+                                <li><a class="dropdown-item role-option" href="#" data-role="Lecturer">Lecturer</a></li>
+                                <li><a class="dropdown-item role-option" href="#" data-role="Coordinator">Programme Coordinator</a></li>
+                                <li><a class="dropdown-item role-option" href="#" data-role="Manager">Academic Manager</a></li>
+                                <li><a class="dropdown-item role-option" href="#" data-role="HR">HR</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Logout Button -->
+                        <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted mt-4">
+        <div class="container">
+            &copy; 2025 - ContractMonthlyClaimSystem - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script>
+        const roleOptions = document.querySelectorAll('.role-option');
+        const roleDropdownBtn = document.getElementById('userRoleDropdown');
+        const defaultMenu = document.getElementById('defaultMenu');
+        const hrMenu = document.getElementById('hrMenu');
+
+        // Load saved role
+        const savedRole = localStorage.getItem('selectedRole');
+        if(savedRole){
+            roleDropdownBtn.textContent = `User: ${savedRole}`;
+            toggleMenu(savedRole);
+        }
+
+        roleOptions.forEach(option => {
+            option.addEventListener('click', e => {
+                e.preventDefault();
+                const role = option.dataset.role;
+
+                localStorage.setItem('selectedRole', role);
+                roleDropdownBtn.textContent = `User: ${role}`;
+
+                toggleMenu(role);
+
+                switch(role){
+                    case 'Lecturer':
+                        window.location.href = '@Url.Action("Dashboard", "Lecturer")';
+                        break;
+                    case 'Coordinator':
+                        window.location.href = '@Url.Action("Dashboard", "ProgramCoordinator")';
+                        break;
+                    case 'Manager':
+                        window.location.href = '@Url.Action("Dashboard", "AcademicManager")';
+                        break;
+                    case 'HR':
+                        window.location.href = '@Url.Action("Dashboard", "HR")';
+                        break;
+                }
+            });
+        });
+
+        function toggleMenu(role){
+            if(role === 'HR'){
+                defaultMenu.style.display = 'none';
+                hrMenu.style.display = 'flex';
+            } else {
+                defaultMenu.style.display = 'flex';
+                hrMenu.style.display = 'none';
+            }
+        }
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            window.location.href = '@Url.Action("Login", "Home")';
+        });
+    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

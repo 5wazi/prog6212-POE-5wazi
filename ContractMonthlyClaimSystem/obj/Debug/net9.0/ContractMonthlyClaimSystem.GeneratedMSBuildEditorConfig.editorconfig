@@ -1,0 +1,125 @@
+is_global = true
+build_property.TargetFramework = net9.0
+build_property.TargetFramework = net9.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = ContractMonthlyClaimSystem
+build_property.RootNamespace = ContractMonthlyClaimSystem
+build_property.ProjectDir = C:\Users\samke\Source\Repos\prog6212-POE-5wazi\ContractMonthlyClaimSystem\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 9.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\samke\Source\Repos\prog6212-POE-5wazi\ContractMonthlyClaimSystem
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 9.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/AcademicManager/Claims.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNhZGVtaWNNYW5hZ2VyXENsYWltcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/AcademicManager/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNhZGVtaWNNYW5hZ2VyXERhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/AcademicManager/ReviewClaim.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNhZGVtaWNNYW5hZ2VyXFJldmlld0NsYWltLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Home/FeatureComingSoon.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxGZWF0dXJlQ29taW5nU29vbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Home/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/HR/CreateUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJcQ3JlYXRlVXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/HR/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/HR/EditUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJcRWRpdFVzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/HR/Reports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJcUmVwb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/HR/ViewUsers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSFJcVmlld1VzZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Lecturer/AddClaim.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVjdHVyZXJcQWRkQ2xhaW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Lecturer/Claims.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVjdHVyZXJcQ2xhaW1zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Lecturer/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVjdHVyZXJcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Lecturer/ViewClaim.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTGVjdHVyZXJcVmlld0NsYWltLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/ProgramCoordinator/Claims.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbUNvb3JkaW5hdG9yXENsYWltcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/ProgramCoordinator/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbUNvb3JkaW5hdG9yXERhc2hib2FyZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/ProgramCoordinator/ReviewClaim.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbUNvb3JkaW5hdG9yXFJldmlld0NsYWltLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/samke/Source/Repos/prog6212-POE-5wazi/ContractMonthlyClaimSystem/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-c14umptbct
