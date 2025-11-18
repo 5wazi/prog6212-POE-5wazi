@@ -56,11 +56,8 @@ public class HomeController : Controller
     public IActionResult Login(Login model)
     {
         if (!ModelState.IsValid)
-        {
             return View(model);
-        }
 
-        // Find user and include role
         var user = _context.Users
             .Include(u => u.UserRole)
             .FirstOrDefault(u => u.UserEmail == model.UserEmail && u.Password == model.Password);
@@ -71,7 +68,12 @@ public class HomeController : Controller
             return View(model);
         }
 
-        // Redirect based on user’s role
+        // ?? STORE USER SESSION
+        HttpContext.Session.SetInt32("UserID", user.UserID);
+        HttpContext.Session.SetString("UserRole", user.UserRole.RoleName);
+        HttpContext.Session.SetString("FullName", user.FullName ?? "");
+
+        // Redirect based on role
         switch (user.UserRole.RoleName)
         {
             case "Lecturer":
@@ -83,11 +85,15 @@ public class HomeController : Controller
             case "Manager":
                 return RedirectToAction("Dashboard", "AcademicManager");
 
+            case "HR":
+                return RedirectToAction("Dashboard", "HR");
+
             default:
                 ModelState.AddModelError("", "Invalid role assigned to this account.");
                 return View(model);
         }
     }
+
 
 
     // Optional: Logout action

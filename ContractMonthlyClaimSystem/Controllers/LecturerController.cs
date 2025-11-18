@@ -14,6 +14,22 @@ namespace ContractMonthlyClaimSystem.Controllers
             _context = context;
         }
 
+        //Part 3.2
+        private int GetLoggedInUserId()
+        {
+            int? userId = HttpContext.Session.GetInt32("UserID");
+
+            if (userId == null)
+            {
+                // Not logged in → redirect to login page
+                RedirectToAction("Login", "Home");
+                return 0; // failsafe
+            }
+
+            return userId.Value;
+        }
+
+
         // GET: Lecturer Dashboard
         public IActionResult Dashboard()
         {
@@ -55,17 +71,18 @@ namespace ContractMonthlyClaimSystem.Controllers
         // GET: AddClaim
         public IActionResult AddClaim()
         {
-            var userId = 1; // replace with the actual authenticated user ID
+            var userId = GetLoggedInUserId();
             var user = _context.Users.Find(userId);
 
             if (user == null)
                 return BadRequest("User not found.");
 
+            // DO NOT bind HourlyRate from form (prevents duplicate decimal errors)
             var claim = new Claim
             {
                 UserID = user.UserID,
-                User = user,
-                HourlyRate = user.HourlyRate, // pull from DB
+                FullName = user.FullName,
+                HourlyRate = user.HourlyRate, 
                 SubmissionDate = DateTime.Now
             };
 
@@ -78,87 +95,82 @@ namespace ContractMonthlyClaimSystem.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddClaim(Claim claim, List<IFormFile>? files)
         {
-            //Console.WriteLine("Form posted!");
-
-            if (!ModelState.IsValid)
-            {
-                Console.WriteLine("Invalid model");
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                Console.WriteLine(string.Join(", ", errors));
-
-                return View(claim);
-            }
-
-            // Get the authenticated lecturer
-            var userId = 1; // replace with actual authenticated user ID
+            var userId = GetLoggedInUserId();
             var user = _context.Users.Find(userId);
+
             if (user == null)
                 return BadRequest("User not found.");
 
-            // Assign claim properties
+            // FORCE correct values (ignore anything from form for these fields)
             claim.UserID = user.UserID;
             claim.FullName = user.FullName;
-            claim.ClaimStatus = "Submitted";
+            claim.HourlyRate = user.HourlyRate;
             claim.SubmissionDate = DateTime.Now;
+            claim.ClaimStatus = "Submitted";
 
-            // Calculate Total using lecturer's hourly rate
-            claim.Total = claim.HoursWorked * user.HourlyRate;
+            // ---- VALIDATION: Max 180 hours ----
+            if (claim.HoursWorked > 180)
+            {
+                ModelState.AddModelError("HoursWorked", "You cannot claim more than 180 hours in a month.");
+            }
 
-            // Add claim to DB
+            if (!ModelState.IsValid)
+            {
+                return View(claim);
+            }
+
+            // CALCULATE TOTAL
+            claim.Total = claim.HoursWorked * claim.HourlyRate;
+
+            // SAVE CLAIM
             _context.Claims.Add(claim);
             _context.SaveChanges();
 
-            // Handle file uploads
+            // ---------------- FILE UPLOADS ----------------
+
             if (files != null && files.Count > 0)
             {
-                string uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads");
+                string uploadPath = Path.Combine("wwwroot", "uploads");
                 if (!Directory.Exists(uploadPath))
                     Directory.CreateDirectory(uploadPath);
 
                 List<string> failedFiles = new List<string>();
                 var allowedExtensions = new[] { ".pdf", ".docx", ".xlsx" };
-                const long maxFileSize = 20 * 1024 * 1024; // 20 MB
+                const long maxFileSize = 20 * 1024 * 1024;
 
                 foreach (var file in files)
                 {
                     try
                     {
-                        if (file.Length > 0)
+                        var ext = Path.GetExtension(file.FileName).ToLower();
+
+                        if (!allowedExtensions.Contains(ext))
                         {
-                            var ext = Path.GetExtension(file.FileName)?.ToLower();
-
-                            // Validate file type
-                            if (!allowedExtensions.Contains(ext))
-                            {
-                                failedFiles.Add($"{file.FileName} (Invalid type)");
-                                continue;
-                            }
-
-                            // Validate file size
-                            if (file.Length > maxFileSize)
-                            {
-                                failedFiles.Add($"{file.FileName} (Exceeds 20MB)");
-                                continue;
-                            }
-
-                            // Save file
-                            string filePath = Path.Combine(uploadPath, file.FileName);
-                            using var stream = new FileStream(filePath, FileMode.Create);
-                            file.CopyTo(stream);
-
-                            // Add to DB
-                            _context.Documents.Add(new Document
-                            {
-                                ClaimID = claim.ClaimID,
-                                FileName = file.FileName,
-                                UploadDate = DateTime.Now
-                            });
+                            failedFiles.Add($"{file.FileName} (Invalid type)");
+                            continue;
                         }
+
+                        if (file.Length > maxFileSize)
+                        {
+                            failedFiles.Add($"{file.FileName} (Exceeds 20MB)");
+                            continue;
+                        }
+
+                        string filePath = Path.Combine(uploadPath, Guid.NewGuid() + ext);
+
+                        using var stream = new FileStream(filePath, FileMode.Create);
+                        file.CopyTo(stream);
+
+                        _context.Documents.Add(new Document
+                        {
+                            ClaimID = claim.ClaimID,
+                            FileName = Path.GetFileName(filePath),
+                            UploadDate = DateTime.Now
+                        });
                     }
-                    catch (Exception ex)
+                    catch
                     {
-                        Console.WriteLine($"Failed to upload {file.FileName}: {ex.Message}");
-                        failedFiles.Add($"{file.FileName} (Error during upload)");
+                        failedFiles.Add($"{file.FileName} (Failed to upload)");
                     }
                 }
 
@@ -166,13 +178,9 @@ namespace ContractMonthlyClaimSystem.Controllers
 
                 if (failedFiles.Any())
                 {
-                    ViewBag.UploadError = "The following files could not be uploaded: " + string.Join(", ", failedFiles);
+                    ViewBag.UploadError = "Some files failed: " + string.Join(", ", failedFiles);
                     return View(claim);
                 }
-            }
-            else
-            {
-                ViewBag.UploadError = "No files were uploaded.";
             }
 
             return RedirectToAction("Dashboard");
