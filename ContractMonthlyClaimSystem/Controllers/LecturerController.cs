@@ -33,7 +33,7 @@ namespace ContractMonthlyClaimSystem.Controllers
         // GET: Lecturer Dashboard
         public IActionResult Dashboard()
         {
-            var userId = 1; // user ID from authentication
+            var userId = GetLoggedInUserId();
             var claims = _context.Claims
                                  .Where(c => c.UserID == userId)
                                  .Include(c => c.Documents)
@@ -58,7 +58,7 @@ namespace ContractMonthlyClaimSystem.Controllers
         // GET: My Claims
         public IActionResult Claims()
         {
-            var userId = 1; //user id
+            var userId = GetLoggedInUserId();
             var claims = _context.Claims
                                  .Where(c => c.UserID == userId)
                                  .Include(c => c.Documents)

@@ -52,10 +52,13 @@
                     </div>
                     <div class="col-md-6">
                         <label asp-for="HourlyRate" class="form-label fw-semibold">Hourly Rate (R)</label>
-                        <!-- Hidden input for form submission -->
-                        <input type="hidden" asp-for="HourlyRate" value="@(Model.User?.HourlyRate ?? 0)" />
-                        <!-- Display read-only to user -->
-                        <p class="form-control-plaintext">@Model.User?.HourlyRate.ToString("0.00")</p>
+
+                        <!-- Hidden input for form posting -->
+                        <input type="hidden" asp-for="HourlyRate" id="HourlyRate" />
+
+                        <!-- Display only -->
+                        <p class="form-control-plaintext">@Model.HourlyRate.ToString("0.00")</p>
+
                         <span asp-validation-for="HourlyRate" class="text-danger"></span>
                     </div>
                 </div>
