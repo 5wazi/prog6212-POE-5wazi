@@ -52,13 +52,10 @@
                     </div>
                     <div class="col-md-6">
                         <label asp-for="HourlyRate" class="form-label fw-semibold">Hourly Rate (R)</label>
-
                         <!-- Hidden input for form posting -->
-                        <input type="hidden" asp-for="HourlyRate" id="HourlyRate" />
-
+                        <input type="hidden" asp-for="HourlyRate" id="HourlyRate"/>
                         <!-- Display only -->
                         <p class="form-control-plaintext">@Model.HourlyRate.ToString("0.00")</p>
-
                         <span asp-validation-for="HourlyRate" class="text-danger"></span>
                     </div>
                 </div>
@@ -104,24 +101,52 @@
 
 @section Scripts {
     <script>
-        // Auto-calc total
+        // Elements
         const hoursInput = document.getElementById("HoursWorked");
         const rateInput = document.getElementById("HourlyRate");
         const totalInput = document.getElementById("Total");
+        const totalDisplay = document.getElementById("TotalDisplay");
+        const submitBtn = document.querySelector("button[type='submit']");
 
-        hoursInput?.addEventListener("input", calculateTotal);
-        rateInput?.addEventListener("input", calculateTotal);
+            // Remaining hours for the month from server
+        const remainingHours = @ViewBag.RemainingHours;
 
-        //Part 3
+        // Error span
+        let hoursError = document.createElement("span");
+        hoursError.classList.add("text-danger", "d-block");
+        hoursInput.parentNode.appendChild(hoursError);
+
+        // Function to calculate total
         function calculateTotal() {
             const hours = parseFloat(hoursInput.value) || 0;
             const rate = parseFloat(rateInput.value) || 0;
             const total = hours * rate;
             totalInput.value = total;
-            document.getElementById("TotalDisplay").innerText = total.toFixed(2);
+            totalDisplay.innerText = total.toFixed(2);
         }
 
-            // Client-side file validation
+        // Function to validate hours
+            function validateHours() {
+            const hours = parseFloat(hoursInput.value) || 0;
+
+            if (hours > remainingHours) {
+                hoursError.innerText = `You can only claim up to ${remainingHours} more hours this month.`;
+                submitBtn.disabled = true;
+                totalDisplay.innerText = "0.00";
+            } else {
+                hoursError.innerText = "";
+                submitBtn.disabled = false;
+                calculateTotal();
+            }
+        }
+
+        // Event listener for hours input
+        hoursInput.addEventListener("input", validateHours);
+
+        // Calculate total on page load
+        calculateTotal();
+
+        // File validation (existing code)
         const fileInput = document.getElementById("files");
         const fileErrorsDiv = document.getElementById("fileErrors");
         const maxFileSize = 20 * 1024 * 1024; // 20 MB
@@ -152,6 +177,7 @@
             }
         });
     </script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

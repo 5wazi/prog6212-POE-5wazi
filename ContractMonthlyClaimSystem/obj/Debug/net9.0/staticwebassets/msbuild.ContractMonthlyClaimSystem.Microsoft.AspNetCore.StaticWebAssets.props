@@ -1152,6 +1152,42 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\lib\jquery\LICENSE.txt'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\0b917728-0a89-4ba1-913e-22a7e1f332da.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ContractMonthlyClaimSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ContractMonthlyClaimSystem</BasePath>
+      <RelativePath>uploads/0b917728-0a89-4ba1-913e-22a7e1f332da.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>bcff6pxix1</Fingerprint>
+      <Integrity>lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\0b917728-0a89-4ba1-913e-22a7e1f332da.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\85e14ee9-2a0d-422c-b241-5498e63db7de.pdf'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ContractMonthlyClaimSystem</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ContractMonthlyClaimSystem</BasePath>
+      <RelativePath>uploads/85e14ee9-2a0d-422c-b241-5498e63db7de.pdf</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>bcff6pxix1</Fingerprint>
+      <Integrity>lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\85e14ee9-2a0d-422c-b241-5498e63db7de.pdf'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\Claim Supporting Document1.pdf'))">
       <SourceType>Package</SourceType>
       <SourceId>ContractMonthlyClaimSystem</SourceId>

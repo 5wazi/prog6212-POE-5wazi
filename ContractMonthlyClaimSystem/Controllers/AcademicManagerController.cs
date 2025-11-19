@@ -16,6 +16,21 @@ namespace ContractMonthlyClaimSystem.Controllers
             _context = context;
         }
 
+        //Part 3.2
+        private int GetLoggedInUserId()
+        {
+            int? userId = HttpContext.Session.GetInt32("UserID");
+
+            if (userId == null)
+            {
+                // Not logged in → redirect to login page
+                RedirectToAction("Login", "Home");
+                return 0; // failsafe
+            }
+
+            return userId.Value;
+        }
+
         // Manager Dashboard
         public async Task<IActionResult> Dashboard()
         {
@@ -78,7 +93,7 @@ namespace ContractMonthlyClaimSystem.Controllers
             var review = new Review
             {
                 ClaimID = claim.ClaimID,
-                UserID = 2, // Replace with current Academic Manager's ID
+                UserID = GetLoggedInUserId(), 
                 Comment = comment,
                 ReviewType = "FinalApproval",
                 ReviewStatus = claim.ClaimStatus,

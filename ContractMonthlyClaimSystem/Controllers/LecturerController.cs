@@ -21,7 +21,7 @@ namespace ContractMonthlyClaimSystem.Controllers
 
             if (userId == null)
             {
-                // Not logged in → redirect to login page
+                // Not logged in > redirect to login page
                 RedirectToAction("Login", "Home");
                 return 0; // failsafe
             }
@@ -77,7 +77,6 @@ namespace ContractMonthlyClaimSystem.Controllers
             if (user == null)
                 return BadRequest("User not found.");
 
-            // DO NOT bind HourlyRate from form (prevents duplicate decimal errors)
             var claim = new Claim
             {
                 UserID = user.UserID,
@@ -87,6 +86,16 @@ namespace ContractMonthlyClaimSystem.Controllers
             };
 
             return View(claim);
+
+            // total hours
+            var totalHoursThisMonth = _context.Claims
+                .Where(c => c.UserID == user.UserID
+                         && c.SubmissionDate.Month == DateTime.Now.Month
+                         && c.SubmissionDate.Year == DateTime.Now.Year)
+                .Sum(c => (decimal?)c.HoursWorked) ?? 0;
+
+            ViewBag.RemainingHours = 180 - totalHoursThisMonth;
+
         }
 
 
@@ -101,21 +110,33 @@ namespace ContractMonthlyClaimSystem.Controllers
             if (user == null)
                 return BadRequest("User not found.");
 
-            // FORCE correct values (ignore anything from form for these fields)
+            // FORCE correct values 
             claim.UserID = user.UserID;
             claim.FullName = user.FullName;
             claim.HourlyRate = user.HourlyRate;
             claim.SubmissionDate = DateTime.Now;
             claim.ClaimStatus = "Submitted";
 
-            // ---- VALIDATION: Max 180 hours ----
-            if (claim.HoursWorked > 180)
+            // Monthly hours validation
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+
+            var totalHoursThisMonth = _context.Claims
+                .Where(c => c.UserID == user.UserID &&
+                            c.SubmissionDate.Month == currentMonth &&
+                            c.SubmissionDate.Year == currentYear)
+                .Sum(c => (decimal?)c.HoursWorked) ?? 0;
+
+            var remainingHours = 180 - totalHoursThisMonth;
+
+            if (claim.HoursWorked > remainingHours)
             {
-                ModelState.AddModelError("HoursWorked", "You cannot claim more than 180 hours in a month.");
+                ModelState.AddModelError("HoursWorked", $"You can only claim up to {remainingHours} more hours this month.");
             }
 
             if (!ModelState.IsValid)
             {
+                ViewBag.RemainingHours = remainingHours;
                 return View(claim);
             }
 
@@ -126,7 +147,7 @@ namespace ContractMonthlyClaimSystem.Controllers
             _context.Claims.Add(claim);
             _context.SaveChanges();
 
-            // ---------------- FILE UPLOADS ----------------
+            // FILE UPLOADS
 
             if (files != null && files.Count > 0)
             {
@@ -202,7 +223,7 @@ namespace ContractMonthlyClaimSystem.Controllers
                     ClaimID = c.ClaimID,
                     SubmissionDate = c.SubmissionDate,
                     HoursWorked = c.HoursWorked,
-                    //HourlyRate = c.HourlyRate,
+                    HourlyRate = c.HourlyRate,
                     Total = c.Total,
                     ClaimStatus = c.ClaimStatus,
                     Notes = c.Notes,

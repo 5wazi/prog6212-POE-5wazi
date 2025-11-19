@@ -14,6 +14,20 @@ namespace ContractMonthlyClaimSystem.Controllers
             _context = context;
         }
 
+        private int GetLoggedInUserId()
+        {
+            int? userId = HttpContext.Session.GetInt32("UserID");
+
+            if (userId == null)
+            {
+                // Not logged in > redirect to login page
+                RedirectToAction("Login", "Home");
+                return 0; // failsafe
+            }
+
+            return userId.Value;
+        }
+
         // GET: Coordinator Dashboard
         public IActionResult Dashboard()
         {
@@ -62,7 +76,6 @@ namespace ContractMonthlyClaimSystem.Controllers
         // GET: Claims awaiting verification
         public IActionResult Claims()
         {
-            // Example: load claims that are submitted and need verification
             var claims = _context.Claims
                                  .Include(c => c.User)
                                  .Include(c => c.Documents)
@@ -100,11 +113,11 @@ namespace ContractMonthlyClaimSystem.Controllers
             else if (action == "Reject")
                 claim.ClaimStatus = "Rejected";
 
-            // Record the review (optional)
+            // Record the review
             var review = new Review
             {
                 ClaimID = claim.ClaimID,
-                UserID = 1, // Replace with current Program Coordinator's ID
+                UserID = GetLoggedInUserId(), 
                 Comment = reviewerComment,
                 ReviewType = "Verification",
                 ReviewStatus = claim.ClaimStatus,

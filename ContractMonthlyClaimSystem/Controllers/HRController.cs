@@ -84,7 +84,7 @@ namespace ContractMonthlyClaimSystem.Controllers
             return RedirectToAction("ViewUsers");
         }
 
-        // Generate Reports (simple LINQ summary)
+        // Generate Reports (LINQ)
         public IActionResult Reports()
         {
             var reportData = _context.Claims

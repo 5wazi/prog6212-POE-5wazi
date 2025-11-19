@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YTvvpAK3UwjCj4Ojm2VpKmFRCsrQkdtojDbmN9FcNlc=",
+  "Hash": "fDPl9MKnCuBqZqdylY74hjjPcxf+hAWXFxc51rU31t8=",
   "Source": "ContractMonthlyClaimSystem",
   "BasePath": "_content/ContractMonthlyClaimSystem",
   "Mode": "Default",
@@ -2724,6 +2724,48 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\uploads\\0b917728-0a89-4ba1-913e-22a7e1f332da.pdf",
+      "SourceId": "ContractMonthlyClaimSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\",
+      "BasePath": "_content/ContractMonthlyClaimSystem",
+      "RelativePath": "uploads/0b917728-0a89-4ba1-913e-22a7e1f332da#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bcff6pxix1",
+      "Integrity": "lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\0b917728-0a89-4ba1-913e-22a7e1f332da.pdf"
+    },
+    {
+      "Identity": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\uploads\\85e14ee9-2a0d-422c-b241-5498e63db7de.pdf",
+      "SourceId": "ContractMonthlyClaimSystem",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\",
+      "BasePath": "_content/ContractMonthlyClaimSystem",
+      "RelativePath": "uploads/85e14ee9-2a0d-422c-b241-5498e63db7de#[.{fingerprint}]?.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "bcff6pxix1",
+      "Integrity": "lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\85e14ee9-2a0d-422c-b241-5498e63db7de.pdf"
     },
     {
       "Identity": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\uploads\\Claim Supporting Document1.pdf",
@@ -21899,6 +21941,170 @@
         {
           "Name": "integrity",
           "Value": "sha256-1HkjQSVuV0/ji/X/lGeDTHeagBS0BwopMrHDQuwqgtU="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/0b917728-0a89-4ba1-913e-22a7e1f332da.bcff6pxix1.pdf",
+      "AssetFile": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\uploads\\0b917728-0a89-4ba1-913e-22a7e1f332da.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "15556"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 00:04:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bcff6pxix1"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/0b917728-0a89-4ba1-913e-22a7e1f332da.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/0b917728-0a89-4ba1-913e-22a7e1f332da.pdf",
+      "AssetFile": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\uploads\\0b917728-0a89-4ba1-913e-22a7e1f332da.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "15556"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 00:04:30 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/85e14ee9-2a0d-422c-b241-5498e63db7de.bcff6pxix1.pdf",
+      "AssetFile": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\uploads\\85e14ee9-2a0d-422c-b241-5498e63db7de.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "15556"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 00:21:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "bcff6pxix1"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/85e14ee9-2a0d-422c-b241-5498e63db7de.pdf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/85e14ee9-2a0d-422c-b241-5498e63db7de.pdf",
+      "AssetFile": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem\\wwwroot\\uploads\\85e14ee9-2a0d-422c-b241-5498e63db7de.pdf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "15556"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/pdf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 19 Nov 2025 00:21:47 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-lar63c9e2fythlcqTCc5KkXVFa91Vyj4rmBLv7005Wc="
         }
       ]
     },

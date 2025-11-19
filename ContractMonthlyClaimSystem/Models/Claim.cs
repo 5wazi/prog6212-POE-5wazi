@@ -24,6 +24,7 @@ namespace ContractMonthlyClaimSystem.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
+        [Range(0, 180, ErrorMessage = "Hours worked cannot exceed 180 hours per month.")]
         public decimal HoursWorked { get; set; }
 
         // HourlyRate is now read-only and automatically set from the User
@@ -59,5 +60,7 @@ namespace ContractMonthlyClaimSystem.Models
                 Total = HoursWorked * HourlyRate;
             }
         }
+
+
     }
 }
