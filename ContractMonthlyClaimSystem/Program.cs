@@ -5,6 +5,7 @@ using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 
 var cultureInfo = new System.Globalization.CultureInfo("en-US");
+cultureInfo.NumberFormat.CurrencySymbol = "R";
 CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
 CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 

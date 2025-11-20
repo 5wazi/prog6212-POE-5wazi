@@ -68,7 +68,7 @@ public class HomeController : Controller
             return View(model);
         }
 
-        // ?? STORE USER SESSION
+        // STORE USER SESSION
         HttpContext.Session.SetInt32("UserID", user.UserID);
         HttpContext.Session.SetString("UserRole", user.UserRole.RoleName);
         HttpContext.Session.SetString("FullName", user.FullName ?? "");

@@ -23,7 +23,8 @@ namespace ContractMonthlyClaimSystem.Data
             modelBuilder.Entity<UserRole>().HasData(
                 new UserRole { RoleID = 1, RoleName = "Lecturer" },
                 new UserRole { RoleID = 2, RoleName = "ProgrammeCoordinator" },
-                new UserRole { RoleID = 3, RoleName = "AcademicManager" }
+                new UserRole { RoleID = 3, RoleName = "AcademicManager" },
+                new UserRole { RoleID = 4, RoleName = "HR" }
             );
 
             modelBuilder.Entity<User>().HasData(
