@@ -14,7 +14,7 @@
         </nav>
     </div>
 
-    <!-- Quick Access -->
+    <!-- Quick Access Buttons -->
     <div class="card shadow-sm rounded-3 mb-4">
         <div class="card-body">
             <h4 class="card-title mb-3 text-dark">Quick Access</h4>
@@ -25,32 +25,54 @@
             </div>
         </div>
     </div>
+    
 
-    <!-- Stats Cards -->
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card shadow-sm rounded-3">
-                <div class="card-body">
-                    <h5 class="card-title">Total Users</h5>
-                    <p class="display-6">@ViewBag.TotalUsers</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm rounded-3">
-                <div class="card-body">
-                    <h5 class="card-title">Total Lecturers</h5>
-                    <p class="display-6">@ViewBag.TotalLecturers</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card shadow-sm rounded-3">
-                <div class="card-body">
-                    <h5 class="card-title">Admins/Coordinators</h5>
-                    <p class="display-6">@ViewBag.TotalAdmins</p>
-                </div>
+    <!-- Recent Users Table -->
+    <div class="card shadow-sm rounded-3">
+        <div class="card-body">
+            <h4 class="card-title mb-3 text-dark">Recent Users Added</h4>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Contact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (ViewBag.RecentUsers != null)
+                        {
+                            foreach (var user in ViewBag.RecentUsers as List<ContractMonthlyClaimSystem.Models.User>)
+                            {
+                                <tr>
+                                    <td>@user.FullName</td>
+                                    <td>@user.UserEmail</td>
+                                    <td>@user.UserRole?.RoleName</td>
+                                    <td>@user.ContactNumber</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">No recent users added.</td>
+                            </tr>
+                        }
+                        @if ((ViewBag.RecentUsers as List<ContractMonthlyClaimSystem.Models.User>)?.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">No recent users added.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.js"></script>
+}

@@ -23,9 +23,16 @@ namespace ContractMonthlyClaimSystem.Controllers
             var lecturers = _context.Users.Count(u => u.UserRole.RoleName == "Lecturer");
             var admins = _context.Users.Count(u => u.UserRole.RoleName != "Lecturer");
 
+            var recentUsers = _context.Users
+                .Include(u => u.UserRole)
+                .OrderByDescending(u => u.UserID)
+                .Take(5)
+                .ToList();
+
             ViewBag.TotalUsers = totalUsers;
             ViewBag.TotalLecturers = lecturers;
             ViewBag.TotalAdmins = admins;
+            ViewBag.RecentUsers = recentUsers;
 
             return View();
         }
