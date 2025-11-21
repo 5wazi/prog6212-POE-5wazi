@@ -96,7 +96,7 @@ public class HomeController : Controller
 
 
 
-    // Optional: Logout action
+    // Logout action
     public IActionResult Logout()
     {
         return RedirectToAction("Login", "Home");

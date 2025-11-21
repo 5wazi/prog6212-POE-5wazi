@@ -28,6 +28,7 @@
         <form method="get" asp-action="DownloadReport" class="d-flex gap-2 flex-wrap">
             <input type="hidden" name="month" value="@(ViewBag.SelectedMonth ?? "")" />
             <input type="hidden" name="lecturer" value="@(ViewBag.SelectedLecturer ?? "All")" />
+            <input type="hidden" name="status" value="@(ViewBag.SelectedStatus ?? "All")" />
             <button type="submit" class="btn btn-success">Download PDF</button>
         </form>
     </div>

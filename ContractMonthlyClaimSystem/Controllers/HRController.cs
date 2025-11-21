@@ -116,13 +116,13 @@ namespace ContractMonthlyClaimSystem.Controllers
             if (!string.IsNullOrEmpty(status) && status != "All")
                 claimsQuery = claimsQuery.Where(c => c.ClaimStatus == status);
 
-
             // Group by lecturer
             var reportData = claimsQuery
                 .GroupBy(c => c.User.FullName)
                 .Select(g => new LecturerReport
                 {
                     Lecturer = g.Key,
+                    
                     // Sum only hours of filtered claims
                     TotalHours = g.Sum(c => c.HoursWorked),
                     // Sum only total of filtered claims
@@ -144,7 +144,6 @@ namespace ContractMonthlyClaimSystem.Controllers
                 .Distinct()
                 .OrderBy(n => n)
                 .ToList();
-
             lecturers.Insert(0, "All"); // Add "All" option
             ViewBag.Lecturers = new SelectList(lecturers, lecturer);
 
@@ -152,10 +151,15 @@ namespace ContractMonthlyClaimSystem.Controllers
             var statuses = new List<string> { "All", "Pending", "Approved", "Rejected", "Verified" };
             ViewBag.Statuses = new SelectList(statuses, status);
 
+            // Save selected values
+            ViewBag.SelectedMonth = month;
+            ViewBag.SelectedLecturer = lecturer;
+            ViewBag.SelectedStatus = status;
+
             return View(reportData);
         }
 
-
+        //Download PDF
         public IActionResult DownloadReport(int? month, string? lecturer, string? status)
         {
             var claimsQuery = _context.Claims.Include(c => c.User).AsQueryable();
@@ -167,7 +171,11 @@ namespace ContractMonthlyClaimSystem.Controllers
                 claimsQuery = claimsQuery.Where(c => c.User.FullName == lecturer);
 
             if (!string.IsNullOrEmpty(status) && status != "All")
-                claimsQuery = claimsQuery.Where(c => c.ClaimStatus == status);
+            {
+                var statusNormalized = status.Trim().ToLower();
+                claimsQuery = claimsQuery.Where(c => !string.IsNullOrEmpty(c.ClaimStatus)
+                                                    && c.ClaimStatus.Trim().ToLower() == statusNormalized);
+            }
 
             var reportData = claimsQuery
                 .GroupBy(c => c.User.FullName)
@@ -185,11 +193,13 @@ namespace ContractMonthlyClaimSystem.Controllers
             var document = new iText.Layout.Document(pdf);
 
             var boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-            document.Add(new Paragraph("HR Lecturer Report").SetFontSize(18).SetFont(boldFont).SetTextAlignment(TextAlignment.CENTER));
+            document.Add(new Paragraph("HR Lecturer Report")
+                .SetFontSize(18).SetFont(boldFont).SetTextAlignment(TextAlignment.CENTER));
 
             foreach (var report in reportData)
             {
-                document.Add(new Paragraph($"Lecturer: {report.Lecturer}").SetFont(boldFont).SetFontSize(14).SetMarginTop(15));
+                document.Add(new Paragraph($"Lecturer: {report.Lecturer}")
+                    .SetFont(boldFont).SetFontSize(14).SetMarginTop(15));
 
                 var table = new Table(6, true);
                 table.AddHeaderCell("Claim ID");
@@ -216,8 +226,14 @@ namespace ContractMonthlyClaimSystem.Controllers
 
             document.Close();
 
-            var pdfBytes = ms.ToArray();
-            return File(pdfBytes, "application/pdf", $"HR_Report_{DateTime.Now:yyyyMMdd}.pdf");
+            // Build dynamic filename
+            string lecturerPart = !string.IsNullOrEmpty(lecturer) && lecturer != "All" ? lecturer : "All Lecturers";
+            string monthPart = month.HasValue ? System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month.Value) : "All Months";
+            string statusPart = !string.IsNullOrEmpty(status) && status != "All" ? status : "All Statuses";
+
+            string fileName = $"{lecturerPart} - {monthPart} - {statusPart} Claims Report.pdf";
+
+            return File(ms.ToArray(), "application/pdf", fileName);
         }
     }
 }
