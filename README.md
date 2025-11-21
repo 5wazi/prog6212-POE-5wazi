@@ -123,7 +123,7 @@ The Contract Monthly Claim System (CMCS) is a .NET MVC web-based application des
 **Installation**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/5wazi/prog6212-Part2-5wazi.git
+   git clone https://github.com/5wazi/prog6212-POE-5wazi.git
    ```
 2. Open the project in Visual Studio
 3. Restore NuGet packages
