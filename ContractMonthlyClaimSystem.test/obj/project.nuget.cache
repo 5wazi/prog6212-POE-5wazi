@@ -1,13 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "UIGrXR87t1k=",
+  "dgSpecHash": "kdFk/dHiFYY=",
   "success": true,
   "projectFilePath": "C:\\Users\\samke\\source\\repos\\ContractMonthlyClaimSystem\\ContractMonthlyClaimSystem.test\\ContractMonthlyClaimSystem.test.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\samke\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\samke\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\samke\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
     "C:\\Users\\samke\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
     "C:\\Users\\samke\\.nuget\\packages\\itext\\9.4.0\\itext.9.4.0.nupkg.sha512",
+    "C:\\Users\\samke\\.nuget\\packages\\itext.bouncy-castle-adapter\\9.4.0\\itext.bouncy-castle-adapter.9.4.0.nupkg.sha512",
     "C:\\Users\\samke\\.nuget\\packages\\itext.commons\\9.4.0\\itext.commons.9.4.0.nupkg.sha512",
     "C:\\Users\\samke\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.3.0\\microsoft.aspnetcore.antiforgery.2.3.0.nupkg.sha512",
     "C:\\Users\\samke\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.3.0\\microsoft.aspnetcore.authentication.abstractions.2.3.0.nupkg.sha512",

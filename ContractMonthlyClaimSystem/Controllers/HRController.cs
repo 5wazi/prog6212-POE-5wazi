@@ -98,19 +98,24 @@ namespace ContractMonthlyClaimSystem.Controllers
         }
 
         // Generate Reports (LINQ)
-        public IActionResult Reports(int? month, int? year)
+        public IActionResult Reports(int? month, string? lecturer, string? status)
         {
-            // Base query including user
             var claimsQuery = _context.Claims
                 .Include(c => c.User)
                 .AsQueryable();
 
-            // Filter by month/year if provided
+            // Filter by month if provided
             if (month.HasValue)
                 claimsQuery = claimsQuery.Where(c => c.SubmissionDate.Month == month.Value);
 
-            if (year.HasValue)
-                claimsQuery = claimsQuery.Where(c => c.SubmissionDate.Year == year.Value);
+            // Filter by lecturer if provided
+            if (!string.IsNullOrEmpty(lecturer) && lecturer != "All")
+                claimsQuery = claimsQuery.Where(c => c.User.FullName == lecturer);
+
+            // Filter by status if provided
+            if (!string.IsNullOrEmpty(status) && status != "All")
+                claimsQuery = claimsQuery.Where(c => c.ClaimStatus == status);
+
 
             // Group by lecturer
             var reportData = claimsQuery
@@ -118,39 +123,51 @@ namespace ContractMonthlyClaimSystem.Controllers
                 .Select(g => new LecturerReport
                 {
                     Lecturer = g.Key,
+                    // Sum only hours of filtered claims
                     TotalHours = g.Sum(c => c.HoursWorked),
+                    // Sum only total of filtered claims
                     TotalAmount = g.Sum(c => c.Total),
-                    Claims = g.ToList() // Keep all individual claims
+                    Claims = g.ToList()
                 })
                 .ToList();
 
-            // Prepare month/year dropdowns with selected value
+            // Month dropdown
             ViewBag.Months = new SelectList(
                 Enumerable.Range(1, 12)
                           .Select(m => new { Value = m, Text = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m) }),
-                "Value", "Text", month); // <-- selected month
+                "Value", "Text", month);
 
-            ViewBag.Years = new SelectList(
-                _context.Claims
-                    .Select(c => c.SubmissionDate.Year)
-                    .Distinct()
-                    .OrderByDescending(y => y)
-                    .Select(y => new { Value = y, Text = y }),
-                "Value", "Text", year); // <-- selected year
+            // Lecturer dropdown
+            var lecturers = _context.Users
+                .Where(u => u.UserRole.RoleName == "Lecturer")
+                .Select(u => u.FullName)
+                .Distinct()
+                .OrderBy(n => n)
+                .ToList();
+
+            lecturers.Insert(0, "All"); // Add "All" option
+            ViewBag.Lecturers = new SelectList(lecturers, lecturer);
+
+            // Status dropdown
+            var statuses = new List<string> { "All", "Pending", "Approved", "Rejected", "Verified" };
+            ViewBag.Statuses = new SelectList(statuses, status);
 
             return View(reportData);
         }
 
 
-        public IActionResult DownloadReport(int? month, int? year)
+        public IActionResult DownloadReport(int? month, string? lecturer, string? status)
         {
-            // Get the same report data
             var claimsQuery = _context.Claims.Include(c => c.User).AsQueryable();
 
             if (month.HasValue)
                 claimsQuery = claimsQuery.Where(c => c.SubmissionDate.Month == month.Value);
-            if (year.HasValue)
-                claimsQuery = claimsQuery.Where(c => c.SubmissionDate.Year == year.Value);
+
+            if (!string.IsNullOrEmpty(lecturer) && lecturer != "All")
+                claimsQuery = claimsQuery.Where(c => c.User.FullName == lecturer);
+
+            if (!string.IsNullOrEmpty(status) && status != "All")
+                claimsQuery = claimsQuery.Where(c => c.ClaimStatus == status);
 
             var reportData = claimsQuery
                 .GroupBy(c => c.User.FullName)
@@ -168,18 +185,11 @@ namespace ContractMonthlyClaimSystem.Controllers
             var document = new iText.Layout.Document(pdf);
 
             var boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
-
-            document.Add(new Paragraph("HR Lecturer Report")
-                .SetFontSize(18)
-                .SetFont(boldFont)
-                .SetTextAlignment(TextAlignment.CENTER));
+            document.Add(new Paragraph("HR Lecturer Report").SetFontSize(18).SetFont(boldFont).SetTextAlignment(TextAlignment.CENTER));
 
             foreach (var report in reportData)
             {
-                document.Add(new Paragraph($"Lecturer: {report.Lecturer}")
-                    .SetFont(boldFont)
-                    .SetFontSize(14)
-                    .SetMarginTop(15));
+                document.Add(new Paragraph($"Lecturer: {report.Lecturer}").SetFont(boldFont).SetFontSize(14).SetMarginTop(15));
 
                 var table = new Table(6, true);
                 table.AddHeaderCell("Claim ID");
@@ -200,10 +210,8 @@ namespace ContractMonthlyClaimSystem.Controllers
                 }
 
                 document.Add(table);
-
                 document.Add(new Paragraph($"Total Hours: {report.TotalHours}   Total Amount: {report.TotalAmount:C}")
-                    .SetFont(boldFont)
-                    .SetMarginBottom(10));
+                    .SetFont(boldFont).SetMarginBottom(10));
             }
 
             document.Close();
