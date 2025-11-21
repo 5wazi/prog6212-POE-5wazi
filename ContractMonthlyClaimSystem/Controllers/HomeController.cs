@@ -79,10 +79,10 @@ public class HomeController : Controller
             case "Lecturer":
                 return RedirectToAction("Dashboard", "Lecturer");
 
-            case "Coordinator":
+            case "ProgrammeCoordinator":
                 return RedirectToAction("Dashboard", "ProgramCoordinator");
 
-            case "Manager":
+            case "AcademicManager":
                 return RedirectToAction("Dashboard", "AcademicManager");
 
             case "HR":
@@ -99,6 +99,7 @@ public class HomeController : Controller
     // Logout action
     public IActionResult Logout()
     {
+        HttpContext.Session.Clear();
         return RedirectToAction("Login", "Home");
     }
 }

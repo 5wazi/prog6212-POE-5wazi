@@ -204,6 +204,26 @@ namespace ContractMonthlyClaimSystem.Migrations
                             Password = "Password@sm31",
                             RoleID = 3,
                             UserEmail = "sm@gmail.com"
+                        },
+                        new
+                        {
+                            UserID = 7,
+                            ContactNumber = "0582531853",
+                            FullName = "Windsor Kaka",
+                            HourlyRate = 0m,
+                            Password = "Password@wk1",
+                            RoleID = 4,
+                            UserEmail = "wk@gmail.com"
+                        },
+                        new
+                        {
+                            UserID = 8,
+                            ContactNumber = "0670985435",
+                            FullName = "Swazi Bhengu",
+                            HourlyRate = 330m,
+                            Password = "Password@sb1",
+                            RoleID = 1,
+                            UserEmail = "wsb@gmail.com"
                         });
                 });
 

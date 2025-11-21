@@ -30,7 +30,9 @@ namespace ContractMonthlyClaimSystem.Data
             modelBuilder.Entity<User>().HasData(
                 new User { UserID = 1, FullName = "Samkelisiwe Hlatshwayo", RoleID = 1, UserEmail = "sh@gmail.com", Password = "Password@sh1", ContactNumber = "0987654321", HourlyRate = 300m},
                 new User { UserID = 2,  FullName = "Anele Mkhabela", RoleID = 2, UserEmail = "am@gmail.com", Password = "Password@am2", ContactNumber = "1234567890", HourlyRate = 350m },
-                new User { UserID = 3, FullName = "Sonto Mthalane", RoleID = 3, UserEmail = "sm@gmail.com", Password = "Password@sm31", ContactNumber = "1357908642", HourlyRate = 400m }
+                new User { UserID = 3, FullName = "Sonto Mthalane", RoleID = 3, UserEmail = "sm@gmail.com", Password = "Password@sm31", ContactNumber = "1357908642", HourlyRate = 400m },
+                new User { UserID = 7, FullName = "Windsor Kaka", RoleID = 4, UserEmail = "wk@gmail.com", Password = "Password@wk1", ContactNumber = "0582531853", HourlyRate = 0m },
+                new User { UserID = 8, FullName = "Swazi Bhengu", RoleID = 1, UserEmail = "wsb@gmail.com", Password = "Password@sb1", ContactNumber = "0670985435", HourlyRate = 330m }
                 );
             // 🔹 Claim → User (Lecturer)
             modelBuilder.Entity<Claim>()

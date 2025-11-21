@@ -165,3 +165,17 @@ C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSyste
 C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\obj\Debug\net9.0\ContractMonthlyClaimSystem.test.pdb
 C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\obj\Debug\net9.0\ContractMonthlyClaimSystem.test.genruntimeconfig.cache
 C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\obj\Debug\net9.0\ref\ContractMonthlyClaimSystem.test.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\BouncyCastle.Cryptography.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.barcodes.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.bouncy-castle-connector.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.forms.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.io.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.kernel.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.layout.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.pdfa.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.pdfua.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.sign.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.styledxmlparser.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.svg.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.bouncy-castle-adapter.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem.test\bin\Debug\net9.0\itext.commons.dll
