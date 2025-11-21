@@ -4,6 +4,12 @@ using ContractMonthlyClaimSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using iText.Kernel.Font;
+using iText.IO.Font.Constants;
 
 namespace ContractMonthlyClaimSystem.Controllers
 {
@@ -92,20 +98,118 @@ namespace ContractMonthlyClaimSystem.Controllers
         }
 
         // Generate Reports (LINQ)
-        public IActionResult Reports()
+        public IActionResult Reports(int? month, int? year)
         {
-            var reportData = _context.Claims
+            // Base query including user
+            var claimsQuery = _context.Claims
                 .Include(c => c.User)
+                .AsQueryable();
+
+            // Filter by month/year if provided
+            if (month.HasValue)
+                claimsQuery = claimsQuery.Where(c => c.SubmissionDate.Month == month.Value);
+
+            if (year.HasValue)
+                claimsQuery = claimsQuery.Where(c => c.SubmissionDate.Year == year.Value);
+
+            // Group by lecturer
+            var reportData = claimsQuery
                 .GroupBy(c => c.User.FullName)
                 .Select(g => new LecturerReport
                 {
                     Lecturer = g.Key,
                     TotalHours = g.Sum(c => c.HoursWorked),
-                    TotalAmount = g.Sum(c => c.Total)
-                }).ToList();
+                    TotalAmount = g.Sum(c => c.Total),
+                    Claims = g.ToList() // Keep all individual claims
+                })
+                .ToList();
+
+            // Prepare month/year dropdowns with selected value
+            ViewBag.Months = new SelectList(
+                Enumerable.Range(1, 12)
+                          .Select(m => new { Value = m, Text = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(m) }),
+                "Value", "Text", month); // <-- selected month
+
+            ViewBag.Years = new SelectList(
+                _context.Claims
+                    .Select(c => c.SubmissionDate.Year)
+                    .Distinct()
+                    .OrderByDescending(y => y)
+                    .Select(y => new { Value = y, Text = y }),
+                "Value", "Text", year); // <-- selected year
 
             return View(reportData);
         }
 
+
+        public IActionResult DownloadReport(int? month, int? year)
+        {
+            // Get the same report data
+            var claimsQuery = _context.Claims.Include(c => c.User).AsQueryable();
+
+            if (month.HasValue)
+                claimsQuery = claimsQuery.Where(c => c.SubmissionDate.Month == month.Value);
+            if (year.HasValue)
+                claimsQuery = claimsQuery.Where(c => c.SubmissionDate.Year == year.Value);
+
+            var reportData = claimsQuery
+                .GroupBy(c => c.User.FullName)
+                .Select(g => new LecturerReport
+                {
+                    Lecturer = g.Key,
+                    Claims = g.ToList(),
+                    TotalHours = g.Sum(c => c.HoursWorked),
+                    TotalAmount = g.Sum(c => c.Total)
+                }).ToList();
+
+            using var ms = new MemoryStream();
+            var writer = new PdfWriter(ms);
+            var pdf = new PdfDocument(writer);
+            var document = new iText.Layout.Document(pdf);
+
+            var boldFont = PdfFontFactory.CreateFont(StandardFonts.HELVETICA_BOLD);
+
+            document.Add(new Paragraph("HR Lecturer Report")
+                .SetFontSize(18)
+                .SetFont(boldFont)
+                .SetTextAlignment(TextAlignment.CENTER));
+
+            foreach (var report in reportData)
+            {
+                document.Add(new Paragraph($"Lecturer: {report.Lecturer}")
+                    .SetFont(boldFont)
+                    .SetFontSize(14)
+                    .SetMarginTop(15));
+
+                var table = new Table(6, true);
+                table.AddHeaderCell("Claim ID");
+                table.AddHeaderCell("Module");
+                table.AddHeaderCell("Hours Worked");
+                table.AddHeaderCell("Amount");
+                table.AddHeaderCell("Status");
+                table.AddHeaderCell("Submitted On");
+
+                foreach (var claim in report.Claims)
+                {
+                    table.AddCell(claim.ClaimID.ToString());
+                    table.AddCell(claim.ModuleCode ?? "");
+                    table.AddCell(claim.HoursWorked.ToString());
+                    table.AddCell(claim.Total.ToString("C"));
+                    table.AddCell(claim.ClaimStatus ?? "");
+                    table.AddCell(claim.SubmissionDate.ToString("yyyy-MM-dd"));
+                }
+
+                document.Add(table);
+
+                document.Add(new Paragraph($"Total Hours: {report.TotalHours}   Total Amount: {report.TotalAmount:C}")
+                    .SetFont(boldFont)
+                    .SetMarginBottom(10));
+            }
+
+            document.Close();
+
+            var pdfBytes = ms.ToArray();
+            return File(pdfBytes, "application/pdf", $"HR_Report_{DateTime.Now:yyyyMMdd}.pdf");
+        }
     }
 }

@@ -63,6 +63,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.10, )"
+            },
+            "itext": {
+              "target": "Package",
+              "version": "[9.4.0, )"
             }
           },
           "imports": [

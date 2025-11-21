@@ -230,3 +230,16 @@ C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSyste
 C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\obj\Debug\net9.0\ContractMonthlyClaimSystem.pdb
 C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\obj\Debug\net9.0\ContractMonthlyClaimSystem.genruntimeconfig.cache
 C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\obj\Debug\net9.0\ref\ContractMonthlyClaimSystem.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.barcodes.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.bouncy-castle-connector.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.forms.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.io.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.kernel.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.layout.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.pdfa.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.pdfua.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.sign.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.styledxmlparser.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.svg.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\itext.commons.dll
+C:\Users\samke\source\repos\ContractMonthlyClaimSystem\ContractMonthlyClaimSystem\bin\Debug\net9.0\Microsoft.DotNet.PlatformAbstractions.dll
